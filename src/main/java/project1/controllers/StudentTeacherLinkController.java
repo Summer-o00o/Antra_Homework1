@@ -41,11 +41,11 @@ public class StudentTeacherLinkController {
         return ResponseEntity.status(200).body(studentTeacherLinkPojo);
     }
 
-//    @PostMapping("")
-//    public ResponseEntity<StudentTeacherLinkPojo> createStudentTeacherLink(@RequestBody StudentTeacherLinkPojo studentTeacherLinkPojo){
-//        StudentTeacherLinkPojo newStudentTeacherLinkPojo = studentTeacherLinkService.createStudentTeacherLink(studentTeacherLinkPojo);
-//        return ResponseEntity.status(201).body(newStudentTeacherLinkPojo);
-//    }
+    @PostMapping("")
+    public ResponseEntity<StudentTeacherLinkPojo> createStudentTeacherLink(@RequestBody StudentTeacherLinkPojo studentTeacherLinkPojo){
+        StudentTeacherLinkPojo newStudentTeacherLinkPojo = studentTeacherLinkService.createStudentTeacherLink(studentTeacherLinkPojo);
+        return ResponseEntity.status(201).body(newStudentTeacherLinkPojo);
+    }
 //
 //    @PutMapping("/{studentTeacherLinkId}")
 //    public ResponseEntity<StudentTeacherLinkPojo> updateStudentTeacherLink(@RequestBody StudentTeacherLinkPojo studentTeacherLinkPojo,
