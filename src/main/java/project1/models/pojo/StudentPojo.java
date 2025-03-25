@@ -4,33 +4,7 @@ public class StudentPojo {
     private Long studentId;
     private String firstName;
     private String lastName;
-    private String username;
-    private String userRole;
-    private String userPassword;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
 
     public String getFirstName() {
         return firstName;
