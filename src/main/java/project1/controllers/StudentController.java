@@ -2,6 +2,7 @@ package project1.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import project1.exceptions.MissInfoException;
 import project1.exceptions.NotFoundException;
@@ -20,11 +21,13 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<StudentPojo> getStudentByID(@PathVariable Long id){
         StudentPojo studentPojo = studentService.getByID(id);
         return ResponseEntity.status(200).body(studentPojo);
     }
+
 
     @GetMapping("")
     public ResponseEntity<List<StudentPojo>> getAllStudents(){
@@ -32,11 +35,13 @@ public class StudentController {
         return ResponseEntity.status(200).body(list);
     }
 
+
     @PostMapping("")
     public ResponseEntity<StudentPojo> createStudent(@RequestBody StudentPojo studentPojo){
         StudentPojo newStudentPojo = studentService.createStudent(studentPojo);
         return ResponseEntity.status(201).body(newStudentPojo);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<StudentPojo> updateStudent(@RequestBody StudentPojo studentPojo,
@@ -46,6 +51,7 @@ public class StudentController {
         return ResponseEntity.status(200).body(updatedStudentPojo);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudentByID(@PathVariable Long id){
         String s = studentService.deleteStudentByID(id);

@@ -18,6 +18,7 @@ import java.util.Optional;
 @Service
 public class StudentService  {
     private final StudentRepository studentRepository;
+    //use LoggerFactory to do log
     private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     @Autowired
@@ -119,9 +120,6 @@ public class StudentService  {
         studentPojo.setStudentId(student.getStudentId());
         studentPojo.setFirstName(student.getFirstName());
         studentPojo.setLastName(student.getLastName());
-        studentPojo.setUsername(student.getUsername());
-        studentPojo.setUserRole(student.getUserRole());
-        studentPojo.setUserPassword(student.getUserPassword());
 
         return studentPojo;
     }
@@ -131,9 +129,6 @@ public class StudentService  {
         student.setStudentId(studentPojo.getStudentId());
         student.setFirstName(studentPojo.getFirstName());
         student.setLastName(studentPojo.getLastName());
-        student.setUsername(studentPojo.getUsername());
-        student.setUserPassword(studentPojo.getUserPassword());
-        student.setUserRole(studentPojo.getUserRole());
         return student;
     }
 }

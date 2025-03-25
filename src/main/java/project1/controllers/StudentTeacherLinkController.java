@@ -2,6 +2,7 @@ package project1.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import project1.exceptions.DataExistException;
 import project1.exceptions.MissInfoException;
@@ -28,12 +29,14 @@ public class StudentTeacherLinkController {
 //        return ResponseEntity.status(200).body(teacherPojos);
 //    }
 
+
     @GetMapping("")
     public ResponseEntity<StudentTeacherLinkPojo> getStudentTeacherLink(@RequestParam Long studentId,
                                                                         @RequestParam Long teacherId){
         StudentTeacherLinkPojo studentTeacherLinkPojo = studentTeacherLinkService.getStudentTeacherLink(studentId, teacherId);
         return ResponseEntity.status(200).body(studentTeacherLinkPojo);
     }
+
 
     @GetMapping("/{studentTeacherLinkId}")
     public ResponseEntity<StudentTeacherLinkPojo> getStudentTeacherLinkById(@PathVariable Long studentTeacherLinkId){

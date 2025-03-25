@@ -18,15 +18,6 @@ public class Student {
     @Column(length = 100, name = "last_name")
     private String lastName;
 
-    @Column(length = 50)
-    private String username;
-
-    @Column(length = 50, name = "user_role")
-    private String userRole;
-
-    @Column(length = 50, name = "user_password")
-    private String userPassword;
-
     @OneToMany(mappedBy = "student")
     private List<StudentTeacherLink> studentTeacherLinks = new ArrayList<>();
 
@@ -62,27 +53,4 @@ public class Student {
         this.studentTeacherLinks = studentTeacherLinks;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
 }

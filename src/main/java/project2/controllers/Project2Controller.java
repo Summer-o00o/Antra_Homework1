@@ -20,6 +20,7 @@ public class Project2Controller {
         this.service = project2Service;
     }
 
+    //use params to differentiate endpoints
     @GetMapping(params = "!name")
     public ResponseEntity<List<Data>> getAllData(){
         List<Data> fetchResult = service.getAllData();
