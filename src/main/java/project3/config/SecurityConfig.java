@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import project3.filter.JwtAuthenticationFilter;
 import project3.security.JwtTokenUtil;
@@ -42,7 +43,7 @@ public class SecurityConfig {
                         //.requestMatchers(HttpMethod.DELETE, "/student/{id}").hasRole("ADMIN")
                         .anyRequest().authenticated()  //other request only need to check authentication
                 )
-                .addFilterBefore(getJwtAuthenticationFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(getJwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

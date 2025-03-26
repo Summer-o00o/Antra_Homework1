@@ -5,17 +5,19 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.filter.OncePerRequestFilter;
 import project3.security.JwtTokenUtil;
 import project3.service.UserDetailsServiceImpl;
 
 import java.io.IOException;
 
-public class JwtAuthenticationFilter extends GenericFilterBean {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtTokenUtil jwtTokenUtil;
     private UserDetailsServiceImpl userDetailsService;
 
@@ -26,11 +28,10 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        String authHeader = httpRequest.getHeader("Authorization");
+        String authHeader = request.getHeader("Authorization");
 
         //if no header or no token, continue filter
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
