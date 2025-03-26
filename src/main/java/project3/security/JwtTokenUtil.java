@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -11,12 +12,13 @@ import java.util.Date;
 
 @Component
 public class JwtTokenUtil {
-    private static final String SECRET_KEY =
-            "Happy1918Friday1234Happy1918Friday1234Happy1918Friday1234Happy1918Friday1234!";
+    //extract value from application.properties
+    @Value("${SECRET_KEY}")
+    private String secretKey;
 
     //generate JWT token
     public String generateToken(String username, String role) {
-        SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
@@ -27,7 +29,7 @@ public class JwtTokenUtil {
     }
 
     public Claims getAllClaimsFromToken(String token) {
-        SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
         Claims claims = Jwts.parser()
                 .verifyWith(key)
                 .build()
@@ -43,16 +45,12 @@ public class JwtTokenUtil {
         return userName;
     }
 
-    public String getRolesFromToken(String token){
-        Claims claims = getAllClaimsFromToken(token);
-        return claims.get("role", String.class);
+    public boolean isTokenValid(String token){
+        try{
+            getAllClaimsFromToken(token);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
-
-
-    public boolean isTokenExpired(String token){
-        Claims claims = getAllClaimsFromToken(token);
-        Date expiration = claims.getExpiration();
-        return expiration.before(new Date());
-    }
-
 }

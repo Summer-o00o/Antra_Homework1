@@ -34,7 +34,8 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        //all endpoint need to be registered here, can just use prefix endpoint
+                        //** means all endpoints with this prefix have the rule
+                        //define global path restriction
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/registration/**").hasRole("ADMIN")
                         .requestMatchers("/student/**").hasAnyRole("USER", "ADMIN")

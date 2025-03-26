@@ -51,6 +51,7 @@ public class StudentController {
         return ResponseEntity.status(200).body(updatedStudentPojo);
     }
 
+    //method level role restriction
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudentByID(@PathVariable Long id){

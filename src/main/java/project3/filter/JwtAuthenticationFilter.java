@@ -40,10 +40,10 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
                 String username = jwtTokenUtil.getUserNameFromToken(token);
                 // check if the user has already been authenticated
                 if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
-                    //get user info from database, can check if user exist
+                    //use userDetails to extract roles
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                    // validate if
-                    if(!jwtTokenUtil.isTokenExpired(token)){
+
+                    if(jwtTokenUtil.isTokenValid(token)){
                         UsernamePasswordAuthenticationToken authentication =
                                 new UsernamePasswordAuthenticationToken(
                                         username, null,
